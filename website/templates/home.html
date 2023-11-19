@@ -4,7 +4,21 @@
 
 <div class="col-md-6 offset-md-3">
 {% if user.is_authenticated %}
-    <h1>Helo!</h1>
+    <h1>Records...</h1>
+    {% if records %}
+        {% for r in records %}
+            {{ r.first_name }}
+            {{ r.last_name }}
+            {{ r.email }}
+            {{ r.phone }}
+            {{ r.address }}
+            {{ r.city }}
+            {{ r.state }}
+            {{ r.zipcode }}
+            {{ r.id }}
+            <br/>
+        {% endfor %}
+    {% endif%}
 {% else %}
     <h1>Login</h1>
     <br/>
