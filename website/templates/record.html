@@ -1,16 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Customer Record:</h1>
-
- {{ cus_record.first_name }} {{ cus_record.last_name }}<br/>
-            {{cus_record.email}}<br/>
-            {{cus_record.phone}}<br/>
-            {{cus_record.address}}<br/>
-            {{cus_record.city}}<br/>
-            {{cus_record.state}}<br/>
-            {{cus_record.zipcode}}<br/>
-            {{cus_record.created_at}}<br/>
-            {{cus_record.id}}<br/>
+<div class="card">
+  <div class="card-header">
+      <strong>
+            {{ cus_record.first_name }} {{ cus_record.last_name }}
+      </strong>
+  </div>
+  <div class="card-body">
+    <p class="card-text"><strong>Email: </strong>{{cus_record.email}}<p/>
+    <p class="card-text"><strong>Phone: </strong>{{cus_record.phone}}<p/>
+    <p class="card-text"><strong>Address: </strong>{{cus_record.address}}<p/>
+    <p class="card-text"><strong>City: </strong>{{cus_record.city}}<p/>
+    <p class="card-text"><strong>State: </strong>{{cus_record.state}}<p/>
+    <p class="card-text"><strong>Zipcode</strong>{{cus_record.zipcode}}<p/>
+    <p class="card-text"><strong>Created At: </strong>{{cus_record.created_at}}<p/>
+    <p class="card-text"><strong>ID: </strong>{{cus_record.id}}<p/>
+  </div>
+</div>
+<br/><br/>
+<a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
 
 {% endblock %}
