@@ -52,6 +52,7 @@ def register_user(request):
 
     return render(request, 'register.html', {'form': form})
 
+
 def customer_record(request, pk):
     if request.user.is_authenticated:
         # Look up record
@@ -59,4 +60,15 @@ def customer_record(request, pk):
         return render(request, "record.html", {"cus_record": cus_record})
     else:
         messages.success(request, "You must be logged to view that page")
+        return redirect('home')
+
+
+def delete_record(request, pk):
+    if request.user.is_authenticated:
+        delete_it = Records.objects.get(id=pk)
+        delete_it.delete()
+        messages.success(request, "Record Deleted!")
+        return redirect('home')
+    else:
+        messages.success(request, "You must be logged to delete")
         return redirect('home')
