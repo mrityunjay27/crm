@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Customer Record:</h1>
+
+ {{ cus_record.first_name }} {{ cus_record.last_name }}<br/>
+            {{cus_record.email}}<br/>
+            {{cus_record.phone}}<br/>
+            {{cus_record.address}}<br/>
+            {{cus_record.city}}<br/>
+            {{cus_record.state}}<br/>
+            {{cus_record.zipcode}}<br/>
+            {{cus_record.created_at}}<br/>
+            {{cus_record.id}}<br/>
+
+{% endblock %}

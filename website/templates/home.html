@@ -30,7 +30,7 @@
             <td>{{ r.state }}</td>
             <td>{{ r.zipcode }}</td>
             <td>{{ r.created_at }}</td>
-            <td>{{ r.id }}</td>
+            <td><a href="{% url 'record' r.id %}">{{ r.id }}</a></td>
         </tr>
             {% endfor %}
         {% endif%}
@@ -38,6 +38,7 @@
 </table>
 
 {% else %}
+<div class="col-md-6 offset-md-3">
     <h1>Login</h1>
     <br/>
     <form method="POST" action="{% url 'home' %}">
@@ -53,5 +54,6 @@
           <button type="submit" class="btn btn-secondary">Login</button>
         </form>
     </form>
+</div>
 {% endif %}
 {% endblock %}
