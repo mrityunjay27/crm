@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -25,8 +26,22 @@ def home(request):
 
     else:
         column_to_sort = request.GET.get('sort', 'first_name')  # Default to a column
-        records = Records.objects.all().order_by(column_to_sort)
-        return render(request, 'home.html', {'records': records})
+        current_order = request.GET.get('order', 'asc')
+
+        if current_order == 'asc':
+            order_by = column_to_sort
+        else:
+            order_by = F(column_to_sort).desc()
+        records = Records.objects.all().order_by(order_by)
+        next_order = 'desc' if current_order == 'asc' else 'asc'
+
+        context = {
+            'records': records,
+            'column_to_sort': column_to_sort,
+            'current_order': current_order,
+            'next_order': next_order,
+        }
+        return render(request, 'home.html', context)
 
 
 def logout_user(request):

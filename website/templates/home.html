@@ -9,10 +9,28 @@
     $(document).ready(function() {
         $('th a').click(function(e) {
             e.preventDefault();
+
             var url = $(this).attr('href');
-            $.get(url, function(data) {
+
+            // Extract the current column and order from the URL
+            var urlParams = new URLSearchParams(url.split('?')[1]);
+            var currentColumn = urlParams.get('sort');
+            var currentOrder = urlParams.get('order');
+
+            // Toggle the order for the next click
+            var nextOrder = currentOrder === 'asc' ? 'desc' : 'asc';
+
+            // Update the URL with the current column and the next order
+            var newUrl = url.split('?')[0] + '?sort=' + currentColumn + '&order=' + nextOrder;
+
+            $.get(newUrl, function(data) {
                 // Update the table with the sorted data
                 $('tbody').html($(data).find('tbody').html());
+
+                // Update the column header links with the new URL
+                $('th a').attr('href', function() {
+                    return $(this).attr('href').replace(url, newUrl);
+                });
             });
         });
     });
@@ -24,11 +42,11 @@
     <table class="table table-striped table-hover table-bordered ">
       <thead class="table-dark">
         <tr>
-          <th scope="col"><a href="?sort=first_name">Name</a></th>
+          <th scope="col"><a href="?sort=first_name&order={{ current_order }}">Name</a></th>
           <th scope="col">Email</th>
           <th scope="col">Phone</th>
           <th scope="col">Address</th>
-            <th scope="col"><a href="?sort=city">City</a></th>
+            <th scope="col"><a href="?sort=city&order={{ current_order }}">City</a></th>
           <th scope="col">State</th>
             <th scope="col">ZipCode</th>
           <th scope="col">CreatedAt</th>
