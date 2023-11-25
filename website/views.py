@@ -24,6 +24,8 @@ def home(request):
             return redirect('home')
 
     else:
+        column_to_sort = request.GET.get('sort', 'first_name')  # Default to a column
+        records = Records.objects.all().order_by(column_to_sort)
         return render(request, 'home.html', {'records': records})
 
 
